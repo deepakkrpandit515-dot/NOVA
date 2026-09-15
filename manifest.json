@@ -1,0 +1,8 @@
+{
+  "name": "NOVA V3 Voice Ready",
+  "short_name": "NOVA V3",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#111827"
+}

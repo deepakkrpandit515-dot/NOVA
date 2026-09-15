@@ -1,0 +1,1 @@
+NOVA V3 Voice Ready\n\nVoice input + spoken replies + RUKO/STOP + PWA.\nRun: cd ~/downloads/Nova_V3_Voice_Ready && node server.js\nOpen: http://127.0.0.1:3001/\nReal AI needs OPENAI_API_KEY on the server. Never put a secret key in index.html or chat.
