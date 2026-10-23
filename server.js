@@ -10,4 +10,5 @@ if(req.url==="/api/health")return send(res,200,{ok:true,aiConfigured:!!KEY,model
 if(req.url==="/api/chat"&&req.method==="POST"){let b=await read(req);if(!b.message)return send(res,400,{error:"message required"});try{return send(res,200,{ok:true,reply:await ai(String(b.message))})}catch(e){return send(res,502,{ok:false,error:e.message})}}
 let f=path.basename((req.url||"/").split("?")[0]||"index.html");if(req.url==="/")f="index.html";let p=path.join(ROOT,f);
 if(fs.existsSync(p)&&fs.statSync(p).isFile())return send(res,200,fs.readFileSync(p),types[path.extname(p)]||"application/octet-stream");send(res,404,{error:"Not found"})
-}catch(e){send(res,500,{error:e.message})}}).listen(PORT,"127.0.0.1",()=>console.log(`NOVA running at http://127.0.0.1:${PORT}`));
+
+.listen(PORT,"0.0.0.0",()=>console.log(`NOVA running on port ${PORT}`));
