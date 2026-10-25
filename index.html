@@ -36,3 +36,41 @@ document.getElementById("voice").onclick=()=>{if(stopped){add("पहले STAR
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
 add("NOVA Voice Ready है। START या 🎙️ Voice दबाओ।","nova");health();
 </script></body></html>
+ html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827"><link rel="manifest" href="/manifest.json">
+<title>NOVA V3 Voice Ready</title>
+<style>
+body{margin:0;background:#0b1020;color:white;font-family:system-ui}.app{max-width:760px;margin:auto;min-height:100vh;display:flex;flex-direction:column}
+header{padding:18px 16px;border-bottom:1px solid #26304a;background:#0b1020}h1{margin:0}.sub{opacity:.7}.status{margin-top:10px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#f59e0b}.on{background:#22c55e}
+main{flex:1;padding:16px}.hero,.msg{background:#172036;border:1px solid #293650;border-radius:16px;padding:14px;margin-bottom:10px}.msg{max-width:88%;white-space:pre-wrap}.user{margin-left:auto;background:#334155}
+.controls{padding:12px 16px;border-top:1px solid #26304a;position:sticky;bottom:0;background:#0b1020}.row{display:flex;gap:8px;margin-top:8px}
+input{flex:1;min-width:0;padding:14px;border-radius:13px;border:1px solid #35415e;background:#111827;color:white;font-size:16px}
+button{border:0;border-radius:12px;padding:12px 15px;background:#2563eb;color:white;font-weight:700}.secondary{background:#29344c}.stop{background:#b91c1c}.active{background:#16a34a}
+.hint{text-align:center;opacity:.65;font-size:11px;margin-top:8px}
+</style></head><body><div class="app">
+<header><h1>NOVA V3</h1><div class="sub">Personal AI Assistant • Voice • RUKO • AI Backend</div>
+<div class="status"><span id="dot" class="dot"></span> <span id="status">Backend: checking…</span></div></header>
+<main><div class="hero"><b>नमस्ते! मैं NOVA हूँ 👋</b><br><span>🎙️ दबाकर बोलो। जवाब मिलने पर NOVA उसे आवाज़ में भी पढ़ेगी।</span></div><div id="chat"></div></main>
+<div class="controls"><div class="row"><input id="input" placeholder="NOVA को कुछ पूछो…"><button id="send">Send</button></div>
+<div class="row"><button id="start" class="secondary">START</button><button id="voice" class="secondary">🎙️ Voice</button><button id="stop" class="stop">RUKO / STOP</button><button id="repeat" class="secondary">Repeat</button></div>
+<div class="hint">पहली बार Voice दबाने पर Microphone permission में Allow चुनो।</div></div></div>
+<script>
+let stopped=false,lastReply="",listening=false,rec=null;
+const chat=document.getElementById("chat"),input=document.getElementById("input"),status=document.getElementById("status"),dot=document.getElementById("dot");
+function add(t,c){let x=document.createElement("div");x.className="msg "+c;x.textContent=t;chat.appendChild(x);window.scrollTo(0,document.body.scrollHeight)}
+function setStatus(t,on=false){status.textContent=t;dot.className="dot"+(on?" on":"")}
+function speak(t){if(stopped||!t||!("speechSynthesis"in window))return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="hi-IN";u.rate=.95;speechSynthesis.speak(u)}
+async function health(){try{let r=await fetch("/api/health");let j=await r.json();setStatus(j.aiConfigured?"Backend: online":"Backend: online, AI key missing",j.aiConfigured)}catch(e){setStatus("Backend: offline")}}
+async function ask(q){q=q.trim();if(!q)return;if(stopped){add("NOVA STOP mode में है। START दबाओ।","nova");return}add(q,"user");input.value="";setStatus("Thinking…");try{let r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:q})});let j=await r.json();lastReply=j.reply||j.error||"कोई जवाब नहीं मिला।";add(lastReply,"nova");speak(lastReply)}catch(e){lastReply="Backend से connection नहीं हुआ।";add(lastReply,"nova")}finally{health()}}
+document.getElementById("send").onclick=()=>ask(input.value);input.onkeydown=e=>{if(e.key==="Enter")ask(input.value)};
+document.getElementById("start").onclick=()=>{stopped=false;add("NOVA READY है। बोलो, मैं सुन रही हूँ।","nova");health()};
+document.getElementById("stop").onclick=()=>{stopped=true;if(rec)try{rec.stop()}catch(e){};if("speechSynthesis"in window)speechSynthesis.cancel();listening=false;document.getElementById("voice").classList.remove("active");setStatus("STOPPED / RUKO");add("ठीक है — NOVA रुक गई। START दबाने पर फिर शुरू होगी।","nova")};
+document.getElementById("repeat").onclick=()=>{if(lastReply&&!stopped)speak(lastReply)};
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+document.getElementById("voice").onclick=()=>{if(stopped){add("पहले START दबाओ।","nova");return}if(!SR){add("इस browser में voice recognition उपलब्ध नहीं है। Chrome में microphone permission के साथ खोलो।","nova");return}if(listening)return;rec=new SR();rec.lang="hi-IN";rec.interimResults=false;rec.continuous=false;listening=true;document.getElementById("voice").classList.add("active");setStatus("Listening… बोलो");rec.onresult=e=>ask(e.results[0][0].transcript);rec.onerror=e=>add("Voice input में समस्या: "+e.error,"nova");rec.onend=()=>{listening=false;document.getElementById("voice").classList.remove("active");health()};try{rec.start()}catch(e){listening=false}};
+if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
+add("NOVA Voice Ready है। START या 🎙️ Voice दबाओ।","nova");health();
+</script></body></html
