@@ -1,5 +1,5 @@
 Status
-Deploy failed
+
 Duration
 18.2s
 Deployed
