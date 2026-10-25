@@ -73,4 +73,4 @@ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 document.getElementById("voice").onclick=()=>{if(stopped){add("पहले START दबाओ।","nova");return}if(!SR){add("इस browser में voice recognition उपलब्ध नहीं है। Chrome में microphone permission के साथ खोलो।","nova");return}if(listening)return;rec=new SR();rec.lang="hi-IN";rec.interimResults=false;rec.continuous=false;listening=true;document.getElementById("voice").classList.add("active");setStatus("Listening… बोलो");rec.onresult=e=>ask(e.results[0][0].transcript);rec.onerror=e=>add("Voice input में समस्या: "+e.error,"nova");rec.onend=()=>{listening=false;document.getElementById("voice").classList.remove("active");health()};try{rec.start()}catch(e){listening=false}};
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
 add("NOVA Voice Ready है। START या 🎙️ Voice दबाओ।","nova");health();
-</script></body></html
+
