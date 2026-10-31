@@ -1,27 +1,626 @@
-<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06132e"><link rel="manifest" href="./manifest.json"><title>NOVA V5 — Personal AI</title>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#050b18">
+<title>NOVA V6 — Personal AI</title>
+<link rel="manifest" href="./manifest.json">
+
 <style>
-:root{--cyan:#39d9ff;--line:#087dce;--text:#f1f7ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0,#0b3470,#030916 48%,#02050d);color:var(--text);font-family:system-ui,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer;color:white;border:1px solid #1686d8;background:linear-gradient(135deg,#0c4e9b,#06214c);border-radius:14px;padding:11px;font-weight:700;box-shadow:0 0 16px #087dce25}.wrap{max-width:650px;margin:auto;padding:14px 13px 30px}.top{display:flex;align-items:center;gap:12px;padding:9px 3px 17px}.orb{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:radial-gradient(circle at 35% 25%,#a7f7ff,#168cff 40%,#071331 72%);box-shadow:0 0 25px #18bfff8a}.brand{flex:1}.brand h1{font-size:27px;letter-spacing:2px;margin:0}.brand p{margin:1px 0;color:#a8d8ff;font-size:12px}.status,.pill{font-size:11px;color:#00e6a0;border:1px solid #00dca166;border-radius:30px;padding:7px 9px}.hero{position:relative;overflow:hidden;border:1px solid #0c8be4;border-radius:23px;padding:20px 18px;background:linear-gradient(115deg,#071a3aee,#031025ee);box-shadow:0 0 25px #087dce22}.hero h2{font-size:23px;margin:0 0 9px}.hero p{color:#b8d9f9;line-height:1.55;margin:5px 0;max-width:82%}.bot{position:absolute;right:14px;top:66px;font-size:55px;filter:drop-shadow(0 0 13px #13bfff);animation:float 3s ease-in-out infinite}@keyframes float{50%{transform:translateY(-7px)}}.chatbox,.section{margin-top:14px;border:1px solid #0a8de2;border-radius:20px;background:#061a36;padding:13px;box-shadow:inset 0 0 22px #0b7cc51a}.messages{max-height:250px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding-bottom:10px}.bubble{padding:10px 12px;border-radius:14px;line-height:1.45;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}.assistant{background:#0a2a52;border:1px solid #12578d;align-self:flex-start;max-width:94%}.user{background:#0a55a1;border:1px solid #268cff;align-self:flex-end;max-width:94%}.inputrow,.researchrow{display:flex;gap:8px}.inputrow input,.researchrow input,.taskline input{min-width:0;flex:1;background:#020c1d;color:white;border:1px solid #17629a;border-radius:13px;padding:12px}.mic{font-size:19px}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.start{background:linear-gradient(135deg,#1388ff,#064fc8)}.stop{background:linear-gradient(135deg,#fa3159,#970d32);border-color:#ff6b8a}.repeat{background:linear-gradient(135deg,#7d49ff,#4121a7);border-color:#a78bff}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:15px}.tile{min-height:105px;border:1px solid #0878b9;border-radius:17px;padding:12px 5px;text-align:center;background:linear-gradient(145deg,#061a35,#031024)}.icon{font-size:27px;display:block;margin-bottom:6px;filter:drop-shadow(0 0 8px #1abfff)}.tile strong{font-size:13px;display:block}.tile small{display:block;color:#9db8d8;font-size:10px;margin-top:4px}.section{border-radius:19px;padding:14px;background:#04142a}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}.sectionhead h3{font-size:16px;margin:0}.section p{color:#abc6e5;font-size:12px;margin:6px 0}.pill{white-space:nowrap}.scannerCards{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.scan,.taskitem{padding:10px 7px;background:#071d3a;border:1px solid #14517d;border-radius:12px;font-size:12px}.scan b{display:block;margin-bottom:5px}.scan small{color:#9db8d8;font-size:10px}.wide{width:100%;margin-top:8px}.taskline{display:flex;gap:8px;margin-top:8px}.taskitem{margin-top:7px;color:#cce5ff}.notice{font-size:11px;color:#ffdf8a;margin-top:8px}.foot{color:#7899bd;font-size:11px;text-align:center;padding:20px 5px}.dim{filter:brightness(.48)}@media(min-width:580px){.wrap{padding-top:22px}.hero h2{font-size:27px}.tile{min-height:118px}}
-</style></head><body><main class="wrap">
-<header class="top"><div class="orb">🤖</div><div class="brand"><h1>NOVA</h1><p>PERSONAL AI ASSISTANT • V5</p><p>Voice · RUKO · AI Backend</p></div><div class="status" id="status">● Checking…</div></header>
-<section class="hero"><h2>नमस्ते! NOVA तैयार है 👋</h2><p>मैं तुम्हारी Personal AI Assistant हूँ। सवाल पूछो, आवाज़ से बात करो या रिसर्च शुरू करो।</p><div class="bot">🤖</div></section>
-<section class="chatbox"><div class="messages" id="messages"><div class="bubble assistant">नमस्ते! मैं NOVA हूँ। Backend connect होने पर मैं AI से जवाब दूँगी।</div></div><form class="inputrow" id="chatForm"><input id="chatInput" autocomplete="off" placeholder="NOVA से कुछ पूछो…"><button class="mic" type="button" id="mic">🎙️</button><button type="submit">➤</button></form><div class="controls"><button class="start" id="voiceStart">▶ START</button><button class="stop" id="stop">■ RUKO</button><button class="repeat" id="repeat">⟳ Repeat</button></div><div class="notice" id="voiceNote">Voice browser/device support पर निर्भर है।</div></section>
-<section class="grid">
-<button class="tile" data-action="Market और business opportunities के बारे में बताओ"><span class="icon">📈</span><strong>Market</strong><small>Business & Products</small></button><button class="tile" data-action="Global market research शुरू करने में मदद करो"><span class="icon">🌐</span><strong>Global Market</strong><small>World Opportunities</small></button><button class="tile" data-action="Personal finance को सुरक्षित तरीके से समझाओ"><span class="icon">₹</span><strong>Finance</strong><small>Money Planning</small></button><button class="tile" data-action="Social media content ideas दो"><span class="icon">📸</span><strong>Social Media</strong><small>Content & Creator</small></button><button class="tile" data-action="कम बजट में business ideas बताओ"><span class="icon">💼</span><strong>Business</strong><small>Startup & Growth</small></button><button class="tile" data-action="Web research में मदद करो"><span class="icon">🔎</span><strong>Global Search</strong><small>Web & Research</small></button><button class="tile" data-action="मुझे किसी समस्या पर step by step मदद करो"><span class="icon">🧠</span><strong>NOVA AI</strong><small>Chat & Reasoning</small></button><button class="tile" id="filesBtn"><span class="icon">📁</span><strong>Files</strong><small>Documents & Data</small></button><button class="tile" id="sleepBtn"><span class="icon">🌙</span><strong>Sleep Mode</strong><small>Save Battery</small></button></section>
-<section class="section"><div class="sectionhead"><h3>🌍 Live Web Research</h3><span class="pill" id="researchStatus">Ready</span></div><p>Backend और API support उपलब्ध होने पर web research चलेगी।</p><form id="researchForm"><div class="researchrow"><input id="researchInput" placeholder="जैसे: AI business trends" required><button>Search</button></div></form><div id="researchResult" class="taskitem" hidden></div></section>
-<section class="section"><div class="sectionhead"><h3>✅ Tasks & Reminders</h3><span class="pill">On this device</span></div><form class="taskline" id="taskForm"><input id="taskInput" placeholder="एक task लिखो…" required><button>Add</button></form><div id="taskList"></div><p>Tasks इस browser में save होते हैं; background notifications guaranteed नहीं हैं।</p></section>
-<section class="section"><div class="sectionhead"><h3>👑 1 Year Goal Card</h3><span class="pill">Target only</span></div><div style="font-size:22px;font-weight:800">₹0 / ₹100 करोड़</div><p>यह केवल लक्ष्य है—कमाई की गारंटी नहीं।</p></section>
-<section class="section"><div class="sectionhead"><h3>⚙️ Backend Settings</h3><span class="pill">Connection</span></div><p>Render Node Web Service URL डालो, जैसे https://your-service.onrender.com</p><form id="backendForm"><div class="researchrow"><input id="backendUrl" placeholder="https://your-service.onrender.com" inputmode="url"><button>Save</button></div></form><button class="wide" id="checkBtn">Check Backend</button><p id="backendHelp">API key केवल Render Environment Variables में रखें—GitHub पर नहीं।</p></section><footer class="foot">NOVA V5 • Human-controlled execution • External actions need approval.</footer></main>
+:root{
+  --bg:#050b18;
+  --panel:rgba(12,26,48,.82);
+  --cyan:#36e8ff;
+  --blue:#347cff;
+  --purple:#a56cff;
+  --text:#eaf8ff;
+  --muted:#8ca8c3;
+  --line:rgba(75,204,255,.2);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+  radial-gradient(ellipse at 50% 12%,#102b50 0%,#071326 42%,#030711 100%);
+  color:var(--text);font-family:system-ui,Arial,sans-serif;
+  min-height:100vh;padding-bottom:35px;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:560px;margin:auto;padding:15px}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 2px 16px;
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:5px;color:#fff}
+.logo span{color:var(--cyan)}
+.version{font-size:10px;color:var(--muted);letter-spacing:2px}
+.status{
+  border:1px solid var(--line);border-radius:30px;
+  padding:7px 11px;font-size:11px;color:#ffc76b;
+  background:#101c2d;
+}
+.status.online{color:#56ffb0}
+.panel{
+  background:linear-gradient(145deg,rgba(17,39,68,.92),rgba(5,15,31,.92));
+  border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 10px 35px #0007,inset 0 0 25px #1b6b9820;
+  padding:16px;margin-bottom:14px;
+}
+.center{text-align:center}
+.eyebrow{font-size:10px;letter-spacing:3px;color:var(--cyan)}
+h1{font-size:22px;margin:7px 0}
+.sub{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* Holographic avatar */
+.avatar-area{
+  height:300px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse,#123e6540 0%,transparent 68%);
+}
+.avatar-area:before,.avatar-area:after{
+  content:"";position:absolute;border:1px solid #36e8ff35;
+  border-radius:50%;width:245px;height:245px;
+  animation:rotate 12s linear infinite;
+}
+.avatar-area:after{
+  width:205px;height:205px;border-color:#a56cff50;
+  animation:rotate 8s linear infinite reverse;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.avatar{
+  position:relative;width:155px;height:205px;z-index:2;
+  display:flex;align-items:center;flex-direction:column;
+  filter:drop-shadow(0 0 18px #39dfff88);
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-9px)}}
+.head{
+  width:94px;height:112px;border-radius:48% 48% 43% 43%;
+  background:linear-gradient(135deg,#b9efff,#397ea9 55%,#172f59);
+  position:relative;border:2px solid #9cecff;
+  box-shadow:inset -12px -8px 20px #06152c,inset 8px 5px 20px #fff8;
+}
+.hair{
+  position:absolute;top:-8px;left:-5px;width:100px;height:65px;
+  border-radius:55% 55% 25% 25%;
+  background:linear-gradient(110deg,#111c3d,#405b8a,#101a35);
+  border-bottom:3px solid #8beaff;
+}
+.eye{
+  position:absolute;top:57px;width:17px;height:6px;
+  border-radius:50%;background:#7cf5ff;
+  box-shadow:0 0 12px #36e8ff;
+}
+.eye.left{left:19px}.eye.right{right:19px}
+.nose{
+  position:absolute;top:66px;left:44px;width:7px;height:16px;
+  border-right:1px solid #d4f8ff88;
+}
+.mouth{
+  position:absolute;bottom:18px;left:37px;width:20px;height:5px;
+  border-bottom:2px solid #b5faff;border-radius:50%;
+}
+.neck{width:35px;height:20px;background:#397da5}
+.body-shape{
+  width:125px;height:75px;border-radius:55% 55% 15% 15%;
+  background:linear-gradient(120deg,#b5eaff,#28638c 50%,#15264b);
+  border:1px solid #8beaff;
+  box-shadow:inset 0 0 20px #d5faff55;
+}
+.scanline{
+  position:absolute;z-index:4;left:0;right:0;height:2px;
+  background:#55edff;box-shadow:0 0 14px #55edff;
+  animation:scan 4s linear infinite;opacity:.55;
+}
+@keyframes scan{0%{top:10%}100%{top:90%}}
+.avatar-label{font-size:11px;letter-spacing:4px;color:var(--cyan);margin-top:7px}
+.voice-state{font-size:12px;color:#a5c6df;margin-top:4px}
+
+/* Controls */
+.controls{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.btn{
+  border:1px solid var(--line);border-radius:14px;
+  background:#102744;color:#eafaff;padding:12px 16px;
+  font-weight:700;font-size:12px;
+}
+.btn.primary{
+  background:linear-gradient(120deg,#087fba,#315ce9);
+  border:0;box-shadow:0 0 18px #168bdb55;
+}
+.btn.stop{background:#421b32;border-color:#ff658a;color:#ffb3c4}
+.btn:active{transform:scale(.97)}
+.chatbox{
+  height:220px;overflow:auto;background:#030b17;
+  border:1px solid var(--line);border-radius:15px;padding:12px;
+}
+.msg{font-size:13px;line-height:1.55;margin:9px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg b{color:var(--cyan)}
+.input-row{display:flex;gap:8px;margin-top:10px}
+.input-row input{
+  flex:1;min-width:0;border:1px solid var(--line);
+  background:#07172a;color:white;border-radius:12px;padding:12px;
+  outline:none;
+}
+.input-row button{border:0;border-radius:12px;background:#087eb7;color:white;padding:0 17px}
+.section-title{font-size:14px;font-weight:800;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tile{
+  min-height:83px;border:1px solid var(--line);
+  background:linear-gradient(145deg,#142b49,#081629);
+  color:white;border-radius:15px;padding:12px 5px;text-align:center;
+}
+.tile .icon{font-size:23px;display:block;margin-bottom:5px}
+.tile span:last-child{font-size:11px;color:#c4d9ed}
+.tile:active{border-color:var(--cyan)}
+.module-view{display:none}
+.module-view.active{display:block}
+.field{
+  width:100%;background:#061629;color:white;
+  border:1px solid var(--line);border-radius:12px;
+  padding:12px;margin:7px 0;outline:none;
+}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1;min-width:0}
+.stat{
+  background:#07182b;border:1px solid var(--line);
+  border-radius:13px;padding:13px;text-align:center;
+}
+.stat strong{display:block;color:var(--cyan);font-size:19px}
+.stat small{font-size:10px;color:var(--muted)}
+.list-item{
+  border-bottom:1px solid var(--line);padding:10px 2px;
+  font-size:12px;display:flex;justify-content:space-between;gap:8px;
+}
+.small{font-size:11px;color:var(--muted)}
+footer{text-align:center;color:#66839d;font-size:10px;padding:10px}
+.back{margin-bottom:10px}
+.hidden{display:none!important}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div>
+    <div class="logo">N<span>O</span>VA</div>
+    <div class="version">PERSONAL AI · V6</div>
+  </div>
+  <div id="backendStatus" class="status">● Checking...</div>
+</header>
+
+<section id="home">
+
+<div class="panel center">
+  <div class="eyebrow">GLOBAL INTELLIGENCE SYSTEM</div>
+  <h1>NOVA is ready</h1>
+  <div class="sub">Your personal AI assistant · Voice · Research · Business</div>
+
+  <div class="avatar-area">
+    <div class="scanline"></div>
+    <div class="avatar">
+      <div class="head">
+        <div class="hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
+      </div>
+      <div class="neck"></div>
+      <div class="body-shape"></div>
+    </div>
+  </div>
+
+  <div class="avatar-label">NOVA HOLOGRAM</div>
+  <div class="voice-state" id="voiceState">System ready · Waiting for command</div>
+
+  <div class="controls">
+    <button class="btn primary" onclick="startVoice()">🎙 START</button>
+    <button class="btn stop" onclick="stopAll()">⏹ RUKO</button>
+    <button class="btn" onclick="repeatLast()">🔊 REPEAT</button>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="section-title">💬 Talk to NOVA</div>
+  <div class="chatbox" id="chat">
+    <div class="msg"><b>NOVA:</b> नमस्ते! मैं तैयार हूँ। आप मुझसे बात कर सकते हैं।</div>
+  </div>
+  <div class="input-row">
+    <input id="message" placeholder="NOVA से कुछ पूछें..." autocomplete="off">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+  <div class="small" style="margin-top:8px">RUKO दबाने पर voice और चल रहा response रोकने की कोशिश होगी।</div>
+</div>
+
+<div class="panel">
+  <div class="section-title">⚡ NOVA Modules</div>
+  <div class="grid">
+    <button class="tile" onclick="openModule('market')"><span class="icon">📈</span><span>Market</span></button>
+    <button class="tile" onclick="openModule('global')"><span class="icon">🌍</span><span>Global Market</span></button>
+    <button class="tile" onclick="openModule('finance')"><span class="icon">💰</span><span>Finance</span></button>
+    <button class="tile" onclick="openModule('social')"><span class="icon">📸</span><span>Social Media</span></button>
+    <button class="tile" onclick="openModule('business')"><span class="icon">🏢</span><span>Business</span></button>
+    <button class="tile" onclick="openModule('research')"><span class="icon">🔎</span><span>Research</span></button>
+    <button class="tile" onclick="openModule('tasks')"><span class="icon">📋</span><span>Tasks</span></button>
+    <button class="tile" onclick="openModule('files')"><span class="icon">📁</span><span>Files</span></button>
+    <button class="tile" onclick="openModule('settings')"><span class="icon">⚙️</span><span>Settings</span></button>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="section-title">💎 NOVA Progress Dashboard</div>
+  <div class="row">
+    <div class="stat"><strong id="incomeValue">₹0</strong><small>Recorded Income</small></div>
+    <div class="stat"><strong id="expenseValue">₹0</strong><small>Recorded Expenses</small></div>
+    <div class="stat"><strong id="profitValue">₹0</strong><small>Net Balance</small></div>
+  </div>
+  <p class="small">यहाँ केवल आपके द्वारा दर्ज की गई रकम दिखाई जाती है। कोई कमाई अपने-आप या guaranteed नहीं है।</p>
+</div>
+</section>
+
+<!-- Modules -->
+<section id="modules" class="hidden">
+
+<button class="btn back" onclick="goHome()">← Home</button>
+
+<div id="market" class="module-view panel">
+  <h3>📈 Market</h3>
+  <p class="sub">Market ideas और सीखने के लिए research questions तैयार करें।</p>
+  <textarea class="field" id="marketQuery" rows="3" placeholder="किस market या product को समझना है?"></textarea>
+  <button class="btn primary" onclick="askFromModule('marketQuery')">NOVA से पूछें</button>
+</div>
+
+<div id="global" class="module-view panel">
+  <h3>🌍 Global Market</h3>
+  <p class="sub">दुनिया के बाजारों, products और trends के बारे में सवाल पूछें। Live data तभी मिलेगा जब backend में research सुविधा उपलब्ध हो।</p>
+  <textarea class="field" id="globalQuery" rows="3" placeholder="Global market research..."></textarea>
+  <button class="btn primary" onclick="askFromModule('globalQuery')">Research पूछें</button>
+</div>
+
+<div id="finance" class="module-view panel">
+  <h3>💰 Finance Tracker</h3>
+  <p class="sub">अपनी दर्ज की हुई income और expenses का रिकॉर्ड रखें।</p>
+  <select class="field" id="moneyType">
+    <option value="income">Income</option>
+    <option value="expense">Expense</option>
+  </select>
+  <input class="field" id="moneyAmount" type="number" min="0" placeholder="Amount ₹">
+  <input class="field" id="moneyNote" placeholder="किस वजह से?">
+  <button class="btn primary" onclick="addMoney()">Save Record</button>
+  <div id="moneyList"></div>
+</div>
+
+<div id="social" class="module-view panel">
+  <h3>📸 Social Media Studio</h3>
+  <p class="sub">Caption, content ideas और post planning में NOVA मदद कर सकता है।</p>
+  <textarea class="field" id="socialQuery" rows="3" placeholder="मेरे लिए content idea बनाओ..."></textarea>
+  <button class="btn primary" onclick="askFromModule('socialQuery')">Content idea</button>
+</div>
+
+<div id="business" class="module-view panel">
+  <h3>🏢 Business Assistant</h3>
+  <p class="sub">Business ideas, customer service और simple planning में मदद। किसी भी payment या बाहरी action से पहले इंसानी approval जरूरी है।</p>
+  <textarea class="field" id="businessQuery" rows="3" placeholder="Business idea या problem लिखें..."></textarea>
+  <button class="btn primary" onclick="askFromModule('businessQuery')">Plan बनाएं</button>
+</div>
+
+<div id="research" class="module-view panel">
+  <h3>🔎 Global Research</h3>
+  <p class="sub">Backend research endpoint उपलब्ध हुआ तो यह request वहाँ भेजी जाएगी।</p>
+  <textarea class="field" id="researchQuery" rows="3" placeholder="क्या research करना है?"></textarea>
+  <button class="btn primary" onclick="runResearch()">Start Research</button>
+  <div id="researchResult" class="small"></div>
+</div>
+
+<div id="tasks" class="module-view panel">
+  <h3>📋 Tasks & Reminders</h3>
+  <input class="field" id="taskInput" placeholder="अपना task लिखें">
+  <button class="btn primary" onclick="addTask()">Add Task</button>
+  <div id="taskList"></div>
+</div>
+
+<div id="files" class="module-view panel">
+  <h3>📁 Files</h3>
+  <p class="sub">फोन से कोई file चुनें। यह अभी केवल आपके फोन में preview/name दिखाता है, server पर upload नहीं करता।</p>
+  <input class="field" type="file" id="filePicker">
+  <div id="fileName" class="small"></div>
+</div>
+
+<div id="settings" class="module-view panel">
+  <h3>⚙️ Backend Settings</h3>
+  <p class="sub">Render backend URL</p>
+  <input class="field" id="backendUrl" placeholder="https://your-service.onrender.com">
+  <button class="btn primary" onclick="saveBackend()">Save Backend</button>
+  <button class="btn" onclick="checkBackend()">Check Backend</button>
+  <p id="settingsStatus" class="small"></p>
+  <hr style="border-color:var(--line)">
+  <p class="small">Backend Online का मतलब server चालू है। AI response के लिए API credits और सही server configuration भी जरूरी हैं।</p>
+</div>
+
+</section>
+
+<footer>NOVA V6 · Human-controlled AI · Permission first</footer>
+</div>
+
 <script>
-const $=id=>document.getElementById(id);let controller=null,lastSpoken="",recognition=null,voiceLoop=false,speaking=false;$("backendUrl").value=localStorage.getItem("nova_backend_url")||"";
-function base(){return($("backendUrl").value||localStorage.getItem("nova_backend_url")||"").trim().replace(/\/+$/,"")}function bubble(w,t){let d=document.createElement("div");d.className="bubble "+w;d.textContent=t;$("messages").append(d);$("messages").scrollTop=$("messages").scrollHeight;return d}
-function stopAll(){voiceLoop=false;speaking=false;try{recognition&&recognition.stop()}catch(e){}try{speechSynthesis.cancel()}catch(e){}if(controller){controller.abort();controller=null}}
-function speak(t){if(!("speechSynthesis"in window))return;lastSpoken=t;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="hi-IN";u.onstart=()=>speaking=true;u.onend=()=>{speaking=false;if(voiceLoop)setTimeout(listenLoop,400)};speechSynthesis.speak(u)}
-async function check(){let b=base();if(!b){$("status").textContent="● URL Needed";$("status").style.color="#ffcf66";return}try{let r=await fetch(b+"/api/health",{cache:"no-store"});if(!r.ok)throw Error();let d=await r.json();$("status").textContent=d.ok?"● Backend Online":"● Backend Issue";$("status").style.color=d.ok?"#00e6a0":"#ffcf66"}catch(e){$("status").textContent="● Backend Offline";$("status").style.color="#ff667e"}}
-async function send(t){t=(t||"").trim();if(!t)return;stopAll();bubble("user",t);$("chatInput").value="";let b=base();if(!b){bubble("assistant","Backend URL सेट नहीं है। Backend Settings में Render Web Service URL डालो। UI चल रहा है, लेकिन AI के लिए backend जरूरी है।");return}controller=new AbortController();let wait=bubble("assistant","NOVA सोच रही है…");try{let r=await fetch(b+"/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:t}),signal:controller.signal});let d=await r.json();wait.remove();if(!r.ok)throw Error(d.error||"Request failed");let a=d.reply||d.output_text||"खाली जवाब मिला।";bubble("assistant",a);if(voiceLoop)speak(a)}catch(e){wait.remove();if(e.name!=="AbortError")bubble("assistant","Backend connect नहीं हुआ: "+e.message)}finally{controller=null}}
-$("chatForm").onsubmit=e=>{e.preventDefault();send($("chatInput").value)};document.querySelectorAll("[data-action]").forEach(b=>b.onclick=()=>send(b.dataset.action));$("stop").onclick=()=>{stopAll();bubble("assistant","RUKO — voice और pending request रोकने की कोशिश की गई।")};$("repeat").onclick=()=>lastSpoken?speak(lastSpoken):bubble("assistant","दोहराने के लिए अभी कोई जवाब नहीं है।");
-function listenLoop(){if(!voiceLoop||speaking)return;let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$("voiceNote").textContent="इस browser में speech recognition उपलब्ध नहीं है।";return}try{recognition=new SR();recognition.lang="hi-IN";recognition.onresult=e=>send(e.results[0][0].transcript);recognition.onend=()=>{if(voiceLoop&&!speaking)setTimeout(listenLoop,800)};recognition.start()}catch(e){}}
-$("voiceStart").onclick=()=>{voiceLoop=true;listenLoop();$("voiceNote").textContent="Voice mode चालू है; बंद करने के लिए RUKO दबाओ।"};$("mic").onclick=()=>{let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$("voiceNote").textContent="Voice input supported नहीं है।";return}try{recognition=new SR();recognition.lang="hi-IN";recognition.onresult=e=>$("chatInput").value=e.results[0][0].transcript;recognition.start()}catch(e){}};
-$("backendForm").onsubmit=e=>{e.preventDefault();let b=$("backendUrl").value.trim().replace(/\/+$/,"");if(b&&!/^https?:\/\//.test(b)){$("backendHelp").textContent="URL https:// से शुरू होना चाहिए।";return}localStorage.setItem("nova_backend_url",b);$("backendUrl").value=b;$("backendHelp").textContent="URL save हो गया।";check()};$("checkBtn").onclick=check;
-$("researchForm").onsubmit=async e=>{e.preventDefault();let q=$("researchInput").value.trim(),b=base();$("researchResult").hidden=false;$("researchResult").textContent="Research चल रही है…";$("researchStatus").textContent="Searching";if(!b){$("researchResult").textContent="पहले Backend Settings में Render URL save करो।";$("researchStatus").textContent="URL Needed";return}try{let r=await fetch(b+"/api/research",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q})});let d=await r.json();if(!r.ok)throw Error(d.error||"Failed");$("researchResult").textContent=d.reply||d.output_text||JSON.stringify(d);$("researchStatus").textContent="Done"}catch(err){$("researchResult").textContent="Research नहीं चली: "+err.message;$("researchStatus").textContent="Error"}};
-let tasks=JSON.parse(localStorage.getItem("nova_tasks")||"[]");function drawTasks(){$("taskList").innerHTML="";tasks.forEach((t,i)=>{let d=document.createElement("div");d.className="taskitem";d.textContent=(t.done?"☑ ":"☐ ")+t.text+" ";let a=document.createElement("button");a.textContent=t.done?"Undo":"Done";a.onclick=()=>{tasks[i].done=!tasks[i].done;saveTasks()};let x=document.createElement("button");x.textContent="×";x.onclick=()=>{tasks.splice(i,1);saveTasks()};d.append(a,x);$("taskList").append(d)})}function saveTasks(){localStorage.setItem("nova_tasks",JSON.stringify(tasks));drawTasks()}$("taskForm").onsubmit=e=>{e.preventDefault();let t=$("taskInput").value.trim();if(t){tasks.push({text:t,done:false});$("taskInput").value="";saveTasks()}};$("filesBtn").onclick=()=>{let i=document.createElement("input");i.type="file";i.onchange=()=>i.files[0]&&bubble("assistant","फाइल चुनी गई: "+i.files[0].name+". Demo में server upload नहीं होता।");i.click()};$("sleepBtn").onclick=()=>document.body.classList.toggle("dim");drawTasks();check();if("serviceWorker"in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
-</script></body></html>
+const DEFAULT_BACKEND = "https://nova-1-hj53.onrender.com";
+let backend = localStorage.getItem("nova_backend") || DEFAULT_BACKEND;
+let recognition = null;
+let listening = false;
+let voiceLoop = false;
+let lastReply = "";
+let activeController = null;
+let lastSpoken = "";
+let finance = JSON.parse(localStorage.getItem("nova_finance") || "[]");
+let tasks = JSON.parse(localStorage.getItem("nova_tasks") || "[]");
+
+const $ = id => document.getElementById(id);
+
+function cleanUrl(url){
+  return String(url || "").trim().replace(/\/+$/,"");
+}
+function addMessage(who,text){
+  const box=$("chat");
+  const div=document.createElement("div");
+  div.className="msg";
+  const label=document.createElement("b");
+  label.textContent=who+": ";
+  div.appendChild(label);
+  div.appendChild(document.createTextNode(text));
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+}
+function setVoiceState(text){$("voiceState").textContent=text}
+
+async function checkBackend(){
+  backend=cleanUrl($("backendUrl")?.value || backend);
+  if(!backend){setStatus(false);return}
+  try{
+    const res=await fetch(backend+"/api/health",{cache:"no-store"});
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    setStatus(true);
+    if($("settingsStatus"))$("settingsStatus").textContent="Backend connected.";
+  }catch(e){
+    setStatus(false);
+    if($("settingsStatus"))$("settingsStatus").textContent="Backend check failed: "+e.message;
+  }
+}
+function setStatus(ok){
+  const el=$("backendStatus");
+  el.textContent=ok?"● Backend Online":"● Backend Offline";
+  el.classList.toggle("online",ok);
+}
+function saveBackend(){
+  backend=cleanUrl($("backendUrl").value);
+  if(!backend){$("settingsStatus").textContent="Valid backend URL डालें.";return}
+  localStorage.setItem("nova_backend",backend);
+  $("settingsStatus").textContent="Backend URL saved.";
+  checkBackend();
+}
+function goHome(){
+  $("home").classList.remove("hidden");
+  $("modules").classList.add("hidden");
+  document.querySelectorAll(".module-view").forEach(x=>x.classList.remove("active"));
+}
+function openModule(id){
+  $("home").classList.add("hidden");
+  $("modules").classList.remove("hidden");
+  document.querySelectorAll(".module-view").forEach(x=>x.classList.remove("active"));
+  $(id).classList.add("active");
+  if(id==="finance")renderFinance();
+  if(id==="tasks")renderTasks();
+  if(id==="settings")$("backendUrl").value=backend;
+}
+async function sendMessage(textFromVoice){
+  const input=$("message");
+  const message=(textFromVoice || input.value).trim();
+  if(!message)return;
+  input.value="";
+  addMessage("आप",message);
+  addMessage("NOVA","सोच रही हूँ...");
+  const pending=$("chat").lastChild;
+  const controller=new AbortController();
+  activeController=controller;
+  setVoiceState("THINKING...");
+  try{
+    const response=await fetch(backend+"/api/chat",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message}),
+      signal:controller.signal
+    });
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error || data.message || "Server error "+response.status);
+    const reply=data.reply || data.response || data.output_text || data.text || "Backend से खाली response मिला।";
+    pending.lastChild.textContent=reply;
+    lastReply=reply;
+    if(voiceLoop && !controller.signal.aborted)speak(reply);
+    else setVoiceState("READY");
+  }catch(error){
+    if(error.name==="AbortError"){
+      pending.lastChild.textContent="Request stopped.";
+    }else{
+      pending.lastChild.textContent="Response नहीं मिला: "+error.message;
+    }
+    setVoiceState("READY");
+  }finally{
+    if(activeController===controller)activeController=null;
+  }
+}
+function speak(text){
+  if(!("speechSynthesis" in window))return;
+  speechSynthesis.cancel();
+  const utterance=new SpeechSynthesisUtterance(text);
+  utterance.lang="hi-IN";
+  utterance.rate=1;
+  utterance.onstart=()=>setVoiceState("SPEAKING...");
+  utterance.onend=()=>{
+    if(voiceLoop){setVoiceState("LISTENING...");startRecognition()}
+    else setVoiceState("READY");
+  };
+  speechSynthesis.speak(utterance);
+}
+function repeatLast(){
+  if(lastReply)speak(lastReply);
+  else setVoiceState("अभी repeat करने के लिए जवाब नहीं है।");
+}
+function stopAll(){
+  voiceLoop=false;
+  listening=false;
+  try{if(recognition)recognition.stop()}catch(e){}
+  if("speechSynthesis" in window)speechSynthesis.cancel();
+  if(activeController)activeController.abort();
+  setVoiceState("STOPPED");
+}
+function startVoice(){
+  if(!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)){
+    setVoiceState("इस browser में voice recognition उपलब्ध नहीं है।");
+    return;
+  }
+  voiceLoop=true;
+  startRecognition();
+}
+function startRecognition(){
+  if(!voiceLoop || listening)return;
+  const Speech=window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition=new Speech();
+  recognition.lang="hi-IN";
+  recognition.continuous=false;
+  recognition.interimResults=false;
+  recognition.onstart=()=>{
+    listening=true;
+    setVoiceState("LISTENING...");
+  };
+  recognition.onresult=e=>{
+    const words=e.results[0][0].transcript;
+    listening=false;
+    if(words.trim().toLowerCase()==="ruko" || words.trim().toLowerCase()==="रुको"){
+      stopAll();return;
+    }
+    sendMessage(words);
+  };
+  recognition.onerror=()=>{
+    listening=false;
+    if(voiceLoop)setVoiceState("Voice error · फिर से START दबाएँ");
+  };
+  recognition.onend=()=>{
+    listening=false;
+  };
+  try{recognition.start()}catch(e){listening=false}
+}
+$("message").addEventListener("keydown",e=>{
+  if(e.key==="Enter")sendMessage();
+});
+function askFromModule(id){
+  const text=$(id).value.trim();
+  if(!text)return;
+  goHome();
+  sendMessage(text);
+}
+async function runResearch(){
+  const query=$("researchQuery").value.trim();
+  if(!query)return;
+  $("researchResult").textContent="Research request भेजी जा रही है...";
+  try{
+    const res=await fetch(backend+"/api/research",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({query})
+    });
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error || "Research endpoint unavailable");
+    $("researchResult").textContent=JSON.stringify(data,null,2);
+  }catch(e){
+    $("researchResult").textContent="Research अभी उपलब्ध नहीं: "+e.message;
+  }
+}
+
+/* Finance */
+function addMoney(){
+  const amount=Number($("moneyAmount").value);
+  if(!Number.isFinite(amount)||amount<=0)return alert("सही amount डालें।");
+  finance.push({
+    type:$("moneyType").value,
+    amount,
+    note:$("moneyNote").value.trim(),
+    date:new Date().toLocaleDateString("hi-IN")
+  });
+  localStorage.setItem("nova_finance",JSON.stringify(finance));
+  $("moneyAmount").value="";
+  $("moneyNote").value="";
+  renderFinance();
+}
+function renderFinance(){
+  const income=finance.filter(x=>x.type==="income").reduce((a,b)=>a+b.amount,0);
+  const expense=finance.filter(x=>x.type==="expense").reduce((a,b)=>a+b.amount,0);
+  $("incomeValue").textContent="₹"+income.toLocaleString("en-IN");
+  $("expenseValue").textContent="₹"+expense.toLocaleString("en-IN");
+  $("profitValue").textContent="₹"+(income-expense).toLocaleString("en-IN");
+  $("moneyList").innerHTML="";
+  finance.slice().reverse().forEach((item,index)=>{
+    const div=document.createElement("div");
+    div.className="list-item";
+    const left=document.createElement("span");
+    left.textContent=item.note+" · "+item.date;
+    const right=document.createElement("b");
+    right.textContent=(item.type==="income"?"+":"-")+"₹"+item.amount.toLocaleString("en-IN");
+    div.append(left,right);
+    $("moneyList").appendChild(div);
+  });
+}
+
+/* Tasks */
+function addTask(){
+  const value=$("taskInput").value.trim();
+  if(!value)return;
+  tasks.push({text:value,done:false});
+  localStorage.setItem("nova_tasks",JSON.stringify(tasks));
+  $("taskInput").value="";
+  renderTasks();
+}
+function renderTasks(){
+  $("taskList").innerHTML="";
+  tasks.forEach((task,index)=>{
+    const div=document.createElement("div");
+    div.className="list-item";
+    const label=document.createElement("span");
+    label.textContent=(task.done?"✓ ":"○ ")+task.text;
+    label.style.textDecoration=task.done?"line-through":"none";
+    label.onclick=()=>{
+      tasks[index].done=!tasks[index].done;
+      localStorage.setItem("nova_tasks",JSON.stringify(tasks));
+      renderTasks();
+    };
+    const del=document.createElement("button");
+    del.className="btn stop";
+    del.textContent="×";
+    del.style.padding="4px 10px";
+    del.onclick=()=>{
+      tasks.splice(index,1);
+      localStorage.setItem("nova_tasks",JSON.stringify(tasks));
+      renderTasks();
+    };
+    div.append(label,del);
+    $("taskList").appendChild(div);
+  });
+}
+$("filePicker").addEventListener("change",()=>{
+  const file=$("filePicker").files[0];
+  $("fileName").textContent=file?file.name+" · "+Math.round(file.size/1024)+" KB":"";
+});
+
+$("backendUrl").value=backend;
+renderFinance();
+renderTasks();
+checkBackend();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
