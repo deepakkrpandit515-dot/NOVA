@@ -1,149 +1,83 @@
-const http = require("http");
-const fs = require("fs");
+const express = require("express");
 const path = require("path");
 
-const PORT = process.env.PORT || 3000;
-const API_KEY = process.env.OPENAI_API_KEY || "";
-const MODEL = process.env.OPENAI_MODEL || "gpt-5.6";
+const app = express();
+const PORT = process.env.PORT || 10000;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
+const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-5.6";
 
-const ROOT = __dirname;
+app.use(express.json({ limit: "1mb" }));
+app.use(express.static(path.join(__dirname, "public")));
 
-const server = http.createServer(async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") {
-    res.writeHead(204);
-    return res.end();
-  }
-
-  const url = new URL(req.url, `http://${req.headers.host}`);
-
-  if (url.pathname === "/api/health") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    return res.end(JSON.stringify({
-      ok: true,
-      backend: "online",
-      aiConfigured: Boolean(API_KEY)
-    }));
-  }
-
-  if (url.pathname === "/api/chat" && req.method === "POST") {
-    if (!API_KEY) {
-      res.writeHead(503, { "Content-Type": "application/json" });
-      return res.end(JSON.stringify({
-        error: "AI key not configured. Set OPENAI_API_KEY in Render Environment."
-      }));
-    }
-
-    try {
-      let body = "";
-
-      for await (const chunk of req) {
-        body += chunk;
-        if (body.length > 100000) {
-          res.writeHead(413);
-          return res.end("Request too large");
-        }
-      }
-
-      const data = JSON.parse(body || "{}");
-      const message = data.message || data.text || data.prompt;
-
-      if (!message) {
-        res.writeHead(400, { "Content-Type": "application/json" });
-        return res.end(JSON.stringify({ error: "Message is required" }));
-      }
-
-      const response = await fetch(
-        "https://api.openai.com/v1/responses",
-        {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${API_KEY}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            model: MODEL,
-            input: String(message)
-          })
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        res.writeHead(response.status, {
-          "Content-Type": "application/json"
-        });
-        return res.end(JSON.stringify({
-          error: result.error?.message || "AI request failed"
-        }));
-      }
-
-      const reply =
-        result.output_text ||
-        (result.output || [])
-          .flatMap(item => item.content || [])
-          .filter(item => item.type === "output_text")
-          .map(item => item.text)
-          .join("\n") ||
-        "NOVA could not generate a reply.";
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      return res.end(JSON.stringify({
-        reply,
-        answer: reply,
-        response: reply
-      }));
-
-    } catch (error) {
-      res.writeHead(500, { "Content-Type": "application/json" });
-      return res.end(JSON.stringify({
-        error: "Server error: " + error.message
-      }));
-    }
-  }
-
-  const requested = url.pathname === "/"
-    ? "index.html"
-    : decodeURIComponent(url.pathname).replace(/^\/+/, "");
-
-  const filePath = path.resolve(ROOT, requested);
-
-  if (
-    filePath !== ROOT &&
-    !filePath.startsWith(ROOT + path.sep)
-  ) {
-    res.writeHead(403);
-    return res.end("Forbidden");
-  }
-
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
-      res.writeHead(404, { "Content-Type": "text/plain" });
-      return res.end("File not found");
-    }
-
-    const ext = path.extname(filePath).toLowerCase();
-    const types = {
-      ".html": "text/html; charset=utf-8",
-      ".js": "application/javascript; charset=utf-8",
-      ".css": "text/css; charset=utf-8",
-      ".json": "application/json; charset=utf-8",
-      ".png": "image/png",
-      ".svg": "image/svg+xml",
-      ".ico": "image/x-icon"
-    };
-
-    res.writeHead(200, {
-      "Content-Type": types[ext] || "application/octet-stream"
-    });
-    res.end(content);
+app.get("/api/health", (_req, res) => {
+  res.json({
+    ok: true,
+    backend: "online",
+    aiConfigured: Boolean(OPENAI_API_KEY),
+    model: OPENAI_API_KEY ? OPENAI_MODEL : null,
+    version: "NOVA V7"
   });
 });
 
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`NOVA backend running on port ${PORT}`);
+app.post("/api/chat", async (req, res) => {
+  try {
+    const message = String(req.body?.message || "").trim();
+    const history = Array.isArray(req.body?.history) ? req.body.history.slice(-12) : [];
+
+    if (!message) return res.status(400).json({ error: "Message is required." });
+    if (!OPENAI_API_KEY) {
+      return res.status(503).json({
+        error: "AI key is not configured on the backend.",
+        hint: "Add OPENAI_API_KEY in Render Environment settings, then redeploy."
+      });
+    }
+
+    const input = [];
+    for (const item of history) {
+      const role = item?.role === "assistant" ? "assistant" : "user";
+      const content = String(item?.content || "").slice(0, 4000);
+      if (content) input.push({ role, content });
+    }
+    input.push({ role: "user", content: message });
+
+    const response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: OPENAI_MODEL,
+        instructions: "You are NOVA, a helpful personal AI assistant. Reply clearly and practically. Use Hindi or Hinglish when the user does. Do not claim to have performed actions, made purchases, sent messages, or accessed live data unless a connected tool actually did so. Ask for permission before consequential external actions. For financial topics, explain uncertainty and never promise earnings.",
+        input
+      })
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const detail = data?.error?.message || `OpenAI request failed (${response.status}).`;
+      return res.status(response.status).json({ error: detail });
+    }
+
+    let answer = data.output_text || "";
+    if (!answer && Array.isArray(data.output)) {
+      answer = data.output.flatMap(x => x.content || [])
+        .filter(x => x.type === "output_text")
+        .map(x => x.text).join("\n");
+    }
+    if (!answer) answer = "I received a response, but no text was returned.";
+    res.json({ ok: true, reply: answer, model: OPENAI_MODEL });
+  } catch (err) {
+    console.error("NOVA chat error:", err);
+    res.status(500).json({ error: "Backend error. Check the Render service logs." });
+  }
+});
+
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`NOVA V7 listening on port ${PORT}`);
+  console.log(`AI key configured: ${Boolean(OPENAI_API_KEY)}`);
 });

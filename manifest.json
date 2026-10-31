@@ -1,8 +1,9 @@
 {
-  "name": "NOVA V3 Voice Ready",
-  "short_name": "NOVA V3",
+  "name": "NOVA V7 Personal AI",
+  "short_name": "NOVA",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0b1020",
-  "theme_color": "#111827"
+  "background_color": "#070b18",
+  "theme_color": "#070b18",
+  "description": "NOVA personal AI assistant"
 }

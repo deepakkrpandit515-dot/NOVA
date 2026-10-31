@@ -1,1 +1,3 @@
-const C="nova-v3";self.addEventListener("install",e=>e.waitUntil(caches.open(C).then(c=>c.addAll(["/","/index.html","/manifest.json"]))));self.addEventListener("fetch",e=>{if(e.request.method==="GET")e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)))})
+const CACHE="nova-v7-shell-1";
+self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(["/","/manifest.json"]))));
+self.addEventListener("fetch",e=>{if(e.request.method!=="GET")return;e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});
