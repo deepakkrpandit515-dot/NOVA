@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b18">
+<title>NOVA V6.2 — 3D Global Intelligence</title>
+<style>
+:root{--bg:#070b18;--panel:#101a30;--line:#24446a;--cyan:#5ee7ff;--blue:#668cff;--text:#eaf7ff;--muted:#91a8c5;--green:#64f0b1}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0%,#142a4a 0%,#080f20 48%,#050812 100%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}button{cursor:pointer;color:var(--text);border:1px solid #31577d;background:linear-gradient(145deg,#172b49,#0d172a);border-radius:13px;padding:12px 14px;min-height:44px}button:active{transform:scale(.98)}button.primary{background:linear-gradient(135deg,#147caa,#354cbd);border-color:#62dfff}button.stop{border-color:#9c4b65;background:#3b1728}input,textarea,select{width:100%;background:#091326;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;min-height:44px}textarea{min-height:90px;resize:vertical}.wrap{max-width:1000px;margin:auto;padding:16px 14px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;letter-spacing:.18em;font-size:22px}.sub{font-size:11px;color:var(--muted);letter-spacing:.13em}.status{font-size:12px;border:1px solid var(--line);border-radius:30px;padding:8px 11px;color:var(--green)}
+.stage{margin:18px auto 20px;max-width:520px;perspective:900px;text-align:center}.orb-wrap{height:260px;display:grid;place-items:center;position:relative}.ring{position:absolute;width:225px;height:225px;border:1px solid #4cdfff77;border-radius:50%;transform:rotateX(70deg);box-shadow:0 0 25px #26bce955,inset 0 0 22px #26bce922;animation:spin 12s linear infinite}.ring.r2{width:185px;height:185px;transform:rotateY(70deg);animation-duration:9s;border-color:#8298ff88}.ring.r3{width:245px;height:245px;transform:rotateX(75deg) rotateZ(40deg);animation-duration:18s;border-style:dashed}.core{width:135px;height:170px;border-radius:48% 48% 42% 42%;background:radial-gradient(ellipse at 50% 30%,#e7ffff 0%,#72eaff 12%,#3988d5 32%,#182e67 62%,#081329 100%);box-shadow:0 0 22px #4bdcff,0 0 70px #318bff88,inset 0 -20px 35px #050a24;position:relative;transform:rotateY(-8deg);animation:float 4s ease-in-out infinite}.core:before,.core:after{content:"";position:absolute;top:65px;width:20px;height:7px;border-radius:50%;background:#d9ffff;box-shadow:0 0 13px #fff}.core:before{left:34px}.core:after{right:34px}.core .mouth{position:absolute;left:50%;top:105px;transform:translateX(-50%);width:25px;height:5px;border-bottom:2px solid #d7ffff;border-radius:50%}.orb-label{margin-top:4px;color:var(--cyan);font-size:12px;letter-spacing:.18em}.hint{color:var(--muted);font-size:12px;margin:6px}
+@keyframes spin{to{transform:rotateX(70deg) rotateZ(360deg)}}@keyframes float{50%{transform:translateY(-9px) rotateY(8deg)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+.controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:14px 0 20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{background:linear-gradient(145deg,#12213aee,#0b1426ee);border:1px solid #28496c;border-radius:17px;padding:14px;box-shadow:0 10px 28px #0005;min-width:0}.card h3{margin:0 0 8px;font-size:14px;color:#bdefff}.card p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.metric{font-size:23px;font-weight:800;margin-top:5px}.wide{grid-column:1/-1}.tabs{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}.tabs button{white-space:nowrap;padding:9px 12px;font-size:12px}.section-title{font-size:13px;letter-spacing:.13em;color:var(--cyan);margin:22px 0 10px}.chatlog{height:210px;overflow:auto;background:#071020;border:1px solid var(--line);border-radius:13px;padding:11px;display:flex;flex-direction:column;gap:9px}.msg{padding:9px 11px;border-radius:12px;max-width:90%;white-space:pre-wrap;line-height:1.45;font-size:13px}.nova{background:#132b46;align-self:flex-start}.you{background:#24376a;align-self:flex-end}.row{display:flex;gap:8px;margin-top:9px}.row>*{min-width:0}.row button{flex-shrink:0}.small{font-size:11px;color:var(--muted)}.list{display:grid;gap:8px}.item{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #203750;font-size:13px}.hidden{display:none!important}.notice{font-size:11px;color:#a9bdd6;line-height:1.5}.footer{text-align:center;color:#7189a7;font-size:10px;margin-top:20px}
+@media(min-width:680px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.orb-wrap{height:285px}.core{width:150px;height:185px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div><div class="brand">NOVA <span style="color:var(--cyan)">V6.2</span></div><div class="sub">3D GLOBAL INTELLIGENCE SYSTEM</div></div><div class="status" id="backendStatus">● CHECKING BACKEND</div></header>
+<section class="stage" aria-label="NOVA hologram">
+ <div class="orb-wrap"><div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div class="core"><span class="mouth"></span></div></div>
+ <div class="orb-label" id="stateLabel">SYSTEM READY · WAITING FOR COMMAND</div><div class="hint">3D HOLOGRAM INTERFACE · MOBILE MODE</div>
+</section>
+<div class="controls"><button class="primary" id="startBtn">🎙 START</button><button class="stop" id="stopBtn">■ RUKO</button><button id="repeatBtn">↻ REPEAT</button></div>
+<nav class="tabs"><button data-tab="command">Command</button><button data-tab="business">Business</button><button data-tab="money">Money</button><button data-tab="research">Research</button><button data-tab="tasks">Tasks</button><button data-tab="settings">Settings</button></nav>
+<section id="command" class="tab">
+ <div class="section-title">TALK TO NOVA</div><div class="chatlog" id="chatlog" aria-live="polite"><div class="msg nova">Hello! NOVA ready hai. Text ya voice se command dein. Backend response ke liye internet zaroori hai.</div></div>
+ <form class="row" id="chatForm"><input id="chatInput" placeholder="NOVA se kuch poochho…" autocomplete="off"><button class="primary">SEND</button></form>
+ <p class="small">Voice support browser/device par depend karta hai. RUKO listening aur speech playback ko rokta hai.</p>
+</section>
+<section id="business" class="tab hidden">
+ <div class="section-title">BUSINESS BUILDER</div><div class="grid">
+  <div class="card"><h3>💡 Idea Studio</h3><p>Low-cost business ideas aur unke pros/cons plan karo.</p></div>
+  <div class="card"><h3>🧭 Opportunity Radar</h3><p>Market demand, skills aur competition ko research checklist se assess karo.</p></div>
+  <div class="card"><h3>🗺 Growth Planner</h3><p>Chhote milestones, weekly actions aur progress track karo.</p></div>
+  <div class="card wide"><h3>AI BUSINESS PLANNER</h3><textarea id="businessGoal" placeholder="Business idea ya skill likho…"></textarea><button class="primary" id="planBtn" style="margin-top:8px">Create plan with NOVA</button><div id="planOutput" class="notice" style="margin-top:10px"></div></div>
+ </div>
+</section>
+<section id="money" class="tab hidden">
+ <div class="section-title">MONEY CENTER · MANUAL RECORDS</div><div class="grid">
+  <div class="card"><p>RECORDED INCOME</p><div class="metric" id="incomeTotal">₹0</div></div><div class="card"><p>RECORDED EXPENSES</p><div class="metric" id="expenseTotal">₹0</div></div><div class="card"><p>NET BALANCE</p><div class="metric" id="netTotal">₹0</div></div>
+  <div class="card wide"><h3>Add a record</h3><form id="moneyForm" class="list"><select id="moneyType"><option value="income">Income</option><option value="expense">Expense</option></select><input id="moneyAmount" type="number" min="1" step="0.01" placeholder="Amount in ₹" required><input id="moneyNote" maxlength="80" placeholder="Note / source"><button class="primary">Save record</button></form><div class="small" style="margin-top:8px">Records are saved only on this device/browser. No earnings are guaranteed.</div></div>
+  <div class="card wide"><h3>Recent records</h3><div id="moneyList" class="list"></div></div>
+ </div>
+</section>
+<section id="research" class="tab hidden"><div class="section-title">GLOBAL RESEARCH</div><div class="card"><h3>Research brief</h3><textarea id="researchTopic" placeholder="Kis market, product ya topic par research chahiye?"></textarea><button class="primary" id="researchBtn" style="margin-top:8px">Ask NOVA to research</button><p class="notice" id="researchOutput" style="margin-top:10px">NOVA backend se jawab maangega. Current market data tabhi milega jab connected backend/web research support kare.</p></div></section>
+<section id="tasks" class="tab hidden"><div class="section-title">DAILY MISSIONS</div><div class="card"><form id="taskForm" class="row"><input id="taskInput" placeholder="Aaj ka task…" maxlength="100"><button class="primary">ADD</button></form><div id="taskList" class="list" style="margin-top:10px"></div></div></section>
+<section id="settings" class="tab hidden"><div class="section-title">SYSTEM SETTINGS</div><div class="card"><h3>Backend connection</h3><label class="small" for="backendUrl">Backend base URL</label><input id="backendUrl" value="https://nova-1-hj53.onrender.com" spellcheck="false"><div class="row"><button class="primary" id="saveBackend">Save URL</button><button id="checkBackend">Check</button></div><p class="notice">Existing backend/API configuration is not changed by this frontend. Keep secret API keys on the server; never paste them here.</p><hr style="border-color:#203750"><label class="small" for="voiceSelect">Voice language</label><select id="voiceSelect"><option value="hi-IN">Hindi (India)</option><option value="en-IN">English (India)</option></select><p class="notice">Owner approval is required before any external action, purchase, payment, message, or account change. This version does not perform those actions automatically.</p></div></section>
+<div class="footer">NOVA V6.2 · 3D-STYLE MOBILE UI · USER CONTROLLED</div>
+</div>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const put=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+let lastReply="",recognition=null,active=false;
+const state=t=>$("stateLabel").textContent=t;
+function addMsg(t,who="nova"){const el=document.createElement("div");el.className="msg "+who;el.textContent=t;$("chatlog").append(el);$("chatlog").scrollTop=$("chatlog").scrollHeight}
+function base(){return $("backendUrl").value.trim().replace(/\/+$/,"")}
+async function ask(text){if(!text.trim())return;addMsg(text,"you");state("THINKING · CONNECTING TO NOVA");try{const r=await fetch(base()+"/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:text})});const data=await r.json();if(!r.ok)throw new Error(data.error||data.message||"Backend request failed");const reply=data.reply||data.response||data.output_text||data.message||JSON.stringify(data);lastReply=reply;addMsg(reply);speak(reply)}catch(e){const msg="Backend se jawab nahi mila: "+e.message;lastReply=msg;addMsg(msg);state("BACKEND RESPONSE UNAVAILABLE")}}
+function speak(t){if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=$("voiceSelect").value;u.onstart=()=>state("SPEAKING");u.onend=()=>state(active?"LISTENING":"SYSTEM READY");window.speechSynthesis.speak(u)}
+$("chatForm").addEventListener("submit",e=>{e.preventDefault();const t=$("chatInput").value.trim();$("chatInput").value="";ask(t)});
+$("stopBtn").addEventListener("click",()=>{active=false;if(recognition){try{recognition.stop()}catch{}}if("speechSynthesis"in window)window.speechSynthesis.cancel();state("STOPPED · RUKO");});
+$("repeatBtn").addEventListener("click",()=>{if(lastReply)speak(lastReply)});
+$("startBtn").addEventListener("click",()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){state("VOICE INPUT NOT SUPPORTED");addMsg("Is browser mein speech recognition available nahi hai. Text chat use karein.");return}if(active)return;recognition=new SR();recognition.lang=$("voiceSelect").value;recognition.continuous=false;recognition.interimResults=false;recognition.onstart=()=>{active=true;state("LISTENING")};recognition.onresult=e=>{const t=e.results[0][0].transcript;$("chatInput").value=t;ask(t)};recognition.onerror=e=>{state("VOICE ERROR · "+e.error.toUpperCase());active=false};recognition.onend=()=>{active=false;if($("stateLabel").textContent==="LISTENING")state("SYSTEM READY")};try{recognition.start()}catch{state("VOICE START FAILED")}});
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(s=>s.classList.add("hidden"));$(b.dataset.tab).classList.remove("hidden")}));
+$("saveBackend").addEventListener("click",()=>{put("novaBackend",base());check()});
+$("checkBackend").addEventListener("click",check);
+async function check(){const url=base();$("backendStatus").textContent="● CHECKING";try{const r=await fetch(url+"/api/health",{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);$("backendStatus").textContent="● BACKEND ONLINE"}catch{$("backendStatus").textContent="● BACKEND UNAVAILABLE"}}
+const saved=get("novaBackend","");if(saved)$("backendUrl").value=saved;check();
+$("planBtn").addEventListener("click",()=>{const t=$("businessGoal").value.trim();if(!t)return;$("planOutput").textContent="Plan request bheja ja raha hai…";ask("Mere liye is idea par practical, low-cost business plan banao. Risks, skills, first steps aur realistic milestones batao: "+t);$("planOutput").textContent="Jawab chat section mein dekhein."});
+$("researchBtn").addEventListener("click",()=>{const t=$("researchTopic").value.trim();if(!t)return;$("researchOutput").textContent="Research request chat mein bheji gayi.";ask("Is topic par research brief do. Facts aur assumptions alag rakho; agar live data available nahi hai to clearly batao: "+t)});
+let records=get("novaMoney",[]);
+function fmt(n){return "₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:2})}
+function renderMoney(){let inc=0,exp=0;records.forEach(x=>x.type==="income"?inc+=x.amount:exp+=x.amount);$("incomeTotal").textContent=fmt(inc);$("expenseTotal").textContent=fmt(exp);$("netTotal").textContent=fmt(inc-exp);$("moneyList").replaceChildren();records.slice(-12).reverse().forEach(x=>{const d=document.createElement("div");d.className="item";const a=document.createElement("span");a.textContent=(x.type==="income"?"＋ ":"− ")+x.note;const b=document.createElement("strong");b.textContent=fmt(x.amount);d.append(a,b);$("moneyList").append(d)});if(!records.length)$("moneyList").textContent="Abhi koi record nahi."}
+$("moneyForm").addEventListener("submit",e=>{e.preventDefault();const amount=Number($("moneyAmount").value);if(!Number.isFinite(amount)||amount<=0)return;records.push({type:$("moneyType").value,amount,note:$("moneyNote").value.trim()||"No note",date:Date.now()});records=records.slice(-100);put("novaMoney",records);$("moneyForm").reset();renderMoney()});renderMoney();
+let tasks=get("novaTasks",[]);
+function renderTasks(){$("taskList").replaceChildren();tasks.forEach((t,i)=>{const d=document.createElement("div");d.className="item";const l=document.createElement("label");const c=document.createElement("input");c.type="checkbox";c.checked=t.done;c.style.width="auto";c.addEventListener("change",()=>{tasks[i].done=c.checked;put("novaTasks",tasks);renderTasks()});l.append(c,document.createTextNode(" "+t.text));const del=document.createElement("button");del.textContent="×";del.setAttribute("aria-label","Delete task");del.addEventListener("click",()=>{tasks.splice(i,1);put("novaTasks",tasks);renderTasks()});d.append(l,del);$("taskList").append(d)});if(!tasks.length)$("taskList").textContent="Aaj ka pehla mission add karein."}
+$("taskForm").addEventListener("submit",e=>{e.preventDefault();const t=$("taskInput").value.trim();if(!t)return;tasks.push({text:t,done:false});tasks=tasks.slice(-40);put("novaTasks",tasks);$("taskInput").value="";renderTasks()});renderTasks();
+})();
+</script>
+</body>
+</html>
